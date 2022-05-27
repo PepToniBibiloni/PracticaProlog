@@ -1,3 +1,4 @@
+consult(diccionari.pl).
 cls:-write('\e[2J'), gotoXY(0,0).
 gotoXY(X,Y):-write('\e['),write(X),write(";"),write(Y),write("H").
 
@@ -61,6 +62,23 @@ paraula(X) :-
     atom_chars(P,L),
     reverse(L,X).
 
+paraulaDic(X) :- 
+    paraula(_,_,P,nom,comu,_,_,_,_,_,_,_,_,_,_),
+    atom_chars(P,X);
+    paraula(_,_,P,nom,comu,_,_,_,_,_,_,_,_,_,_),
+    atom_chars(P,L),
+    reverse(L,X);
+    paraula(_,_,P,adjectiu,_,_,_,_,_,_,_,_,_,_,_),
+    atom_chars(P,X);
+    paraula(_,_,P,adjectiu,_,_,_,_,_,_,_,_,_,_,_),
+    atom_chars(P,L),
+    reverse(L,X);
+    paraula(_,_,P,verb,_,_,_,_,_,_,_,_,_,_,_),
+    atom_chars(P,X);
+    paraula(_,_,P,verb,_,_,_,_,_,_,_,_,_,_,_),
+    atom_chars(P,L),
+    reverse(L,X).
+
 repetides([]) :- fail.
 repetides([X|Xs]) :-
     member(X,Xs),!;
@@ -97,3 +115,28 @@ creuats :-
     mostra(X6,13,5,horitzontal),nl,mostra(X7,6,3,horitzontal),nl,mostra(X8,3,8,vertical),nl,
     mostra(X9,2,6,vertical),nl,mostra(X10,4,1,horitzontal),nl,mostra(X11,4,1,vertical),nl,
     mostra(X12,6,3,vertical),nl,mostra(X13,11,2,horitzontal),nl.
+
+
+creuats2 :- 
+    cls,
+    paraulaDic(X0),length(X0,N0),N0 is 7,
+    paraulaDic(X1),length(X1,N1),N1 is 11,conte(X0,X1,5,1),append([X0],[X1],LL0),
+    paraulaDic(X2),length(X2,N2),N2 is 5,conte(X1,X2,3,3),append(LL0,[X2],LL1),
+    paraulaDic(X3),length(X3,N3),N3 is 7,conte(X1,X3,11,5),append(LL1,[X3],LL2),not(repetides(LL2)),
+    paraulaDic(X4),length(X4,N4),N4 is 3,conte(X3,X4,7,3),append(LL2,[X4],LL3),
+    paraulaDic(X5),length(X5,N5),N5 is 8,conte(X3,X5,3,6),append(LL3,[X5],LL4),
+    paraulaDic(X6),length(X6,N6),N6 is 10,conte(X5,X6,8,6),append(LL4,[X6],LL5),
+    paraulaDic(X7),length(X7,N7),N7 is 8,conte(X5,X7,1,8),append(LL5,[X7],LL6),not(repetides(LL6)),
+    paraulaDic(X8),length(X8,N8),N8 is 6,conte(X7,X8,6,4),append(LL6,[X8],LL7),
+    paraulaDic(X9),length(X9,N9),N9 is 8,conte(X7,X9,4,5),append(LL7,[X9],LL8),not(repetides(LL8)),
+    paraulaDic(X10),length(X10,N10),N10 is 6,conte(X9,X10,3,6),append(LL8,[X10],LL9),not(repetides(LL9)),
+    paraulaDic(X11),length(X11,N11),N11 is 5,conte(X10,X11,1,1),append(LL9,[X11],LL10),not(repetides(LL10)),
+    paraulaDic(X12),length(X12,N12),N12 is 8,conte(X7,X12,1,1),append(LL10,[X12],LL11),not(repetides(LL11)),
+    paraulaDic(X13),length(X13,N13),N13 is 5,conte(X12,X13,6,2),append(LL11,[X13],LL12),not(repetides(LL12)),
+    mostra(X0,1,8,horitzontal),nl,mostra(X1,1,12,vertical),nl,mostra(X2,3,10,horitzontal),nl,
+    mostra(X3,11,8,horitzontal),nl,mostra(X4,9,14,vertical),nl,mostra(X5,6,10,vertical),nl,
+    mostra(X6,13,5,horitzontal),nl,mostra(X7,6,3,horitzontal),nl,mostra(X8,3,8,vertical),nl,
+    mostra(X9,2,6,vertical),nl,mostra(X10,4,1,horitzontal),nl,mostra(X11,4,1,vertical),nl,
+    mostra(X12,6,3,vertical),nl,mostra(X13,11,2,horitzontal),nl.
+
+
