@@ -64,18 +64,20 @@ paraula(X) :-
 repetides([]) :- fail.
 repetides([X|Xs]) :-
     member(X,Xs),!;
+    reverse(X,Y),member(Y,Xs),!;
     repetides(Xs).
 
 mostra([],_,_,_).
 mostra([X|Y],F,C,O) :-
     O = vertical,C1 is C*4,F1 is F*2,gotoXY(F1,C1),escriu(X,vermell),F2 is F1+1,gotoXY(F2,C1),escriu(' ',negre),F3 is F+1,mostra(Y,F3,C,O),nl,!;
-    O = horitzontal,C1 is C*4,F1 is F*2,gotoXY(F,C1),escriu(X,blau),C2 is C1+1,gotoXY(F1,C2),escriu('   ',negre),C3 is C+1,mostra(Y,F,C3,O),nl.
+    O = horitzontal,C1 is C*4,F1 is F*2,gotoXY(F1,C1),escriu(X,blau),C2 is C1+1,gotoXY(F1,C2),escriu('   ',negre),C3 is C+1,mostra(Y,F,C3,O),nl.
 
 conte(X,Y,N1,N2):-
     nth1(N1,X,L1),nth1(N2,Y,L2),
     L1 = L2,!.
 
 creuats :- 
+    cls,
     paraula(X0),length(X0,N0),N0 is 7,
     paraula(X1),length(X1,N1),N1 is 11,conte(X0,X1,5,1),append([X0],[X1],LL0),
     paraula(X2),length(X2,N2),N2 is 5,conte(X1,X2,3,3),append(LL0,[X2],LL1),
@@ -90,6 +92,8 @@ creuats :-
     paraula(X11),length(X11,N11),N11 is 5,conte(X10,X11,1,1),append(LL9,[X11],LL10),not(repetides(LL10)),
     paraula(X12),length(X12,N12),N12 is 8,conte(X7,X12,1,1),append(LL10,[X12],LL11),not(repetides(LL11)),
     paraula(X13),length(X13,N13),N13 is 5,conte(X12,X13,6,2),append(LL11,[X13],LL12),not(repetides(LL12)),
-    cls,mostra(X0,1,8,horitzontal),mostra(X1,1,12,vertical),mostra(X2,3,10,horitzontal).
-    
-
+    mostra(X0,1,8,horitzontal),nl,mostra(X1,1,12,vertical),nl,mostra(X2,3,10,horitzontal),nl,
+    mostra(X3,11,8,horitzontal),nl,mostra(X4,9,14,vertical),nl,mostra(X5,6,10,vertical),nl,
+    mostra(X6,13,5,horitzontal),nl,mostra(X7,6,3,horitzontal),nl,mostra(X8,3,8,vertical),nl,
+    mostra(X9,2,6,vertical),nl,mostra(X10,4,1,horitzontal),nl,mostra(X11,4,1,vertical),nl,
+    mostra(X12,6,3,vertical),nl,mostra(X13,11,2,horitzontal),nl.
